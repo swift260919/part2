@@ -6,6 +6,8 @@
 //  Copyright © 2019 HACKERU. All rights reserved.
 //
 
+//TODO: storyboard and @IBInspectable
+
 import UIKit
 
 @IBDesignable
