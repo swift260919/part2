@@ -8,14 +8,55 @@
 
 import UIKit
 
-class DesignableView: UIView {
+@IBDesignable class DesignableView: GradientView {
+    
+    @IBInspectable var shadowRadius:Double = 1.0{
+         didSet{
+            self.layer.shadowRadius = CGFloat(shadowRadius)
+         }
+     }
+    
+    @IBInspectable var shadowColor:UIColor = UIColor.black{
+         didSet{
+            self.layer.shadowColor = shadowColor.cgColor
+         }
+     }
+    
+    @IBInspectable var shadowOpacity:Double = 0.5{
+         didSet{
+            self.layer.shadowOpacity = Float(shadowOpacity)
+         }
+     }
+    
+    @IBInspectable var shadowOffset:CGSize = CGSize.zero{
+         didSet{
+            self.layer.shadowOffset = shadowOffset
+         }
+     }
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+   @IBInspectable var borderRadius:Double = 1.0{
+        didSet{
+            self.layer.cornerRadius = CGFloat(borderRadius)
+        }
     }
-    */
-
+    
+    @IBInspectable var borderWidth:Double = 1.0{
+         didSet{
+             self.layer.borderWidth = CGFloat(borderWidth)
+         }
+     }
+    
+    @IBInspectable var borderColor:UIColor = UIColor.black{
+         didSet{
+            self.layer.borderColor = borderColor.cgColor
+         }
+     }
+    
+    @IBInspectable var circle:Bool = false{
+         didSet{
+            if circle{
+                self.layer.cornerRadius = bounds.height / 2
+            }
+         }
+     }
 }
