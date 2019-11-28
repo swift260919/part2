@@ -15,17 +15,37 @@ class ViewController: UIViewController {
       
         
         //let imageView = UIImageView...
-        
+        let image = UIImage(named: "house")
+        let imageView = UIImageView(image: image)
         //1) init a UIImage
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(imageView)
+        
         //2) init a UIImageView
         //3) add some constraints (width, height)
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 200),
+            imageView.heightAnchor.constraint(equalToConstant: 200)
+        ])
+        imageView.contentMode = .scaleToFill
         //center in x, center in y
         //contentMode = .scaleToFill
         
         //proof of concept:
-        //4) add: cornerRadius, backgroundColor,
-        //shadowColor, shadowRadius, shadowOffset
-        //shadowOpacity
+        imageView.layer.cornerRadius = 100 //200 / 2
+        imageView.backgroundColor = UIColor.black
+        imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.clipsToBounds = true
+        
+        //4) add shadow:
+        imageView.layer.borderWidth = 3
+        imageView.layer.shadowColor = UIColor.red.cgColor
+        imageView.layer.shadowRadius = 1 //TODO: explain this property
+        imageView.layer.shadowOffset = CGSize.zero
+        imageView.layer.shadowOpacity = 1
     }
 
 
