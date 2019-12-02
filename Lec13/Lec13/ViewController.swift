@@ -16,29 +16,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
-        guard let url = Bundle.main.url(forResource: "c2", withExtension: "mp3") else {return}
-        
-        
-        player = try? AVAudioPlayer(contentsOf: url)
+
+
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-           super.touchesBegan(touches, with: event)
-        player?.play()
-       }
-   //onclick -> player?.play()
-}
-
-//NoteView :
-//PianoView: Stack
-
-
-
-
-class v: UIView{
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-    }
+ 
 }
 
 
