@@ -142,11 +142,13 @@
                 <pinchGestureRecognizer id="Yda-3M-b4X">
                     <connections>
                         <action selector="pinch:" destination="l1z-KH-Sx0" id="gr1-N7-Jdj"/>
+                        <outlet property="delegate" destination="l1z-KH-Sx0" id="eWO-1g-RN7"/>
                     </connections>
                 </pinchGestureRecognizer>
                 <rotationGestureRecognizer id="fhW-iT-8hX">
                     <connections>
                         <action selector="rotate:" destination="l1z-KH-Sx0" id="SfR-QU-W5A"/>
+                        <outlet property="delegate" destination="l1z-KH-Sx0" id="qIl-Jc-vnl"/>
                     </connections>
                 </rotationGestureRecognizer>
             </objects>

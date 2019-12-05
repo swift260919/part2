@@ -13,25 +13,29 @@ class PinchRotateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
+    //view position, size, anchorPoint
+    
     
     @IBAction func rotate(_ sender: UIRotationGestureRecognizer) {
-        
+        //yellowView.transform = CGAffineTransform(rotationAngle: sender.rotation)
         let change = CGAffineTransform(rotationAngle: sender.rotation)
         let current = yellowView.transform
-        
+
         yellowView.transform = current.concatenating(change)
-        
+
         sender.rotation = 0
     }
     
     @IBAction func pinch(_ sender: UIPinchGestureRecognizer) {
-        let change = CGAffineTransform(rotationAngle: sender.scale)
+        //yellowView.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale)
+        
+
+        let change = CGAffineTransform(scaleX: sender.scale, y: sender.scale)
         let current = yellowView.transform
         yellowView.transform = current.concatenating(change)
-        
+
         sender.scale = 1
     }
     
@@ -45,4 +49,11 @@ class PinchRotateViewController: UIViewController {
     }
     */
 
+}
+
+//shouldRecognizeSimultaneouslyWith
+extension PinchRotateViewController: UIGestureRecognizerDelegate{
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

@@ -10,20 +10,10 @@ import UIKit
 
 class PianoView: UIView {
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
+    let notes = ["a1", "b1", "c1", "d1", "e1", "f1", "g1","c2", "a1", "b1", "c1", "d1", "e1", "f1"]
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-    
-    func commonInit(){
-        
-    }
-    
+    let sharps = ["a1s", "c1s", "f1s", "g1s", "a1s"]
+
     //layout
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -38,8 +28,9 @@ class PianoView: UIView {
         let noteWidth:CGFloat = bounds.width / CGFloat(numberOfNotes)
         let noteHeight:CGFloat = bounds.height
         
-        for _ in 0..<numberOfNotes{
+        for i in 0..<numberOfNotes{
             let noteView = NoteView(frame: CGRect(x: originX, y: 0, width: noteWidth, height: noteHeight))
+            noteView.note = notes[i]
             
             noteView.backgroundColor = UIColor.white
             
@@ -53,8 +44,9 @@ class PianoView: UIView {
         
         originX = noteWidth / 2 //diez is in the middle of the key 25
         let diezHeight = noteHeight * 0.6 //copied from damir
-        for _ in 0...4{
+        for i in 0...4{
             let diezView = NoteView(frame: CGRect(x: originX, y: 0, width: noteWidth, height: diezHeight))
+            diezView.note = sharps[i]
             diezView.backgroundColor = UIColor.black
             
             //mi si
@@ -62,5 +54,48 @@ class PianoView: UIView {
             addSubview(diezView)
             originX += noteWidth * 2
         }
+    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+    
+    func commonInit(){
+        initTapGestureRecognizer()
+        initPanGestureRecognizer()
+    }
+    
+    
+    func initPanGestureRecognizer(){
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleGestureEvent(_:)))
+        
+        panGestureRecognizer.maximumNumberOfTouches = 10
+        
+        addGestureRecognizer(panGestureRecognizer)
+    }
+    
+    func initTapGestureRecognizer(){
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleGestureEvent(_:)))
+        
+        self.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    
+    @objc func handleGestureEvent(_ sender: UIGestureRecognizer){
+        for i in 0..<sender.numberOfTouches{
+            let point = sender.location(ofTouch: i, in: self)
+            handleTouch(at: point)
+        }
+    }
+    
+    func handleTouch(at point: CGPoint){
+        //point iterate over all NoteViews and check if the point is inside their frame.
+        guard let noteView = self.hitTest(point, with: nil) as? NoteView else {return}
+        noteView.play()
     }
 }
