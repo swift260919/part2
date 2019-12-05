@@ -32,13 +32,6 @@ class ViewController: UIViewController {
         
         let t = Team(context: context)
         
-        //shows private properties:
-        
-        //Nsobjects support Key value coding: (KVC)
-        let barButton = UIBarButtonItem()
-        let v = barButton.value(forKey: "view") as? UIView
-        
-        
         
         
         
@@ -63,32 +56,12 @@ class ViewController: UIViewController {
             }
         }
         
-        //real time:
-        //KVO
-        //get notified when a property is changed!
-        //           observer = view.observe(\.backgroundColor) { (view, change) in
-        //                if let newValue = change.newValue{
-        //                    print("Color changed: ", newValue ?? "val")
-        //                }
-        //            }
-        //
-        //
-        observer = view.observe(\.backgroundColor, options: [.new], changeHandler: { (view, change) in
-            if let newValue = change.newValue{
-                print("Color changed: ", newValue ?? "val")
-            }
-        })
+    }
         
-    }
-    
-    var observer: NSKeyValueObservation?
-    
-    deinit {
-        observer?.invalidate()
-    }
-    
 }
 
+    
+    
 
 
 //NSCoding
@@ -102,3 +75,42 @@ class DDD: NSCoding{
         //coder get the property
     }
 }
+
+
+/**
+
+     //shows private properties:
+     
+     //Nsobjects support Key value coding: (KVC)
+     let barButton = UIBarButtonItem()
+     let v = barButton.value(forKey: "view") as? UIView
+     
+     
+     
+     
+     //real time:
+     //KVO
+     //get notified when a property is changed!
+     //           observer = view.observe(\.backgroundColor) { (view, change) in
+     //                if let newValue = change.newValue{
+     //                    print("Color changed: ", newValue ?? "val")
+     //                }
+     //            }
+     //
+     //
+     observer = view.observe(\.backgroundColor, options: [.new], changeHandler: { (view, change) in
+         if let newValue = change.newValue{
+             print("Color changed: ", newValue ?? "val")
+         }
+     })
+     
+ }
+ 
+ var observer: NSKeyValueObservation?
+ 
+ deinit {
+     observer?.invalidate()
+ }
+  
+ 
+ */
