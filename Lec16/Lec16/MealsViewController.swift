@@ -40,10 +40,8 @@ class MealsViewController: UIViewController {
         fetchRequest.fetchLimit = 1
         //predicate where
         //sort descriptors - sort by
-        
-        
+
         //find or create
-        
         let context = CoreDataStack.shared.context
         if let result = try? context.fetch(fetchRequest){
             if result.count > 0{

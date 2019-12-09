@@ -77,13 +77,13 @@
 				6DFDBA7B239E2B4900ACA0AE /* AppDelegate.swift */,
 				6DFDBA7D239E2B4900ACA0AE /* SceneDelegate.swift */,
 				6DFDBA7F239E2B4900ACA0AE /* MealsViewController.swift */,
+				6DFDBA9C239E391600ACA0AE /* EditPersonViewController.swift */,
 				6DFDBA81239E2B4900ACA0AE /* Main.storyboard */,
 				6DFDBA87239E2B4B00ACA0AE /* Assets.xcassets */,
 				6DFDBA89239E2B4B00ACA0AE /* LaunchScreen.storyboard */,
 				6DFDBA8C239E2B4B00ACA0AE /* Info.plist */,
 				6DFDBA84239E2B4900ACA0AE /* Lec16.xcdatamodeld */,
 				6DFDBA92239E2B7600ACA0AE /* CoreDataStack.swift */,
-				6DFDBA9C239E391600ACA0AE /* EditPersonViewController.swift */,
 			);
 			path = Lec16;
 			sourceTree = "<group>";
