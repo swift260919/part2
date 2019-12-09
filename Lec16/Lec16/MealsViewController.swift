@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MealsViewController: UIViewController {
     @IBOutlet weak var personNameLabel: UILabel!
@@ -30,7 +31,33 @@ class MealsViewController: UIViewController {
         //+ add new meal -> use a alertController
         //
     }
-
+    
+    var currentPerson:Person?
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let fetchRequest:NSFetchRequest<Person> = Person.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        //predicate where
+        //sort descriptors - sort by
+        
+        
+        //find or create
+        
+        let context = CoreDataStack.shared.context
+        if let result = try? context.fetch(fetchRequest){
+            if result.count > 0{
+                //we have a person
+                currentPerson = result.first
+            }else{
+                //create the person
+                let p = Person(context: context)
+                performSegue(withIdentifier: "editPersonSegue", sender: p)
+                currentPerson = p
+            }
+        }
+    }
+    
     @IBAction func addMeal(_ sender: UIBarButtonItem) {
     }
     
