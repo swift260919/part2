@@ -18,6 +18,19 @@ import CoreData
 //add meal to current user
 //edit meals for current user
 
+
+//predicates
+//sort descriptors
+//
+
+
+
+
+
+
+
+
+
 class MealsViewController: UIViewController {
     @IBOutlet weak var personNameLabel: UILabel!
     
