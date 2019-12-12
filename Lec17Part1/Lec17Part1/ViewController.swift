@@ -18,11 +18,51 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //print(locationManager.getLastKnownLocation())
         locationManager.getLocationUpdaets()
         mapView.delegate = self
+        
+        if(locationManager.hasPermission()){
+            mapView.showsUserLocation = true
+        }
+        
+        NotificationCenter.default.addObserver(forName: .HKLocationChanged, object: nil, queue: .main) { (notification) in
+            guard let location = notification.userInfo?["location"] as? CLLocation else {return}
+            //show the user location on the map:
+            self.changeMapRegion(location: location)
+        }
     }
-
+    
+    //move the map to the users location
+    func changeMapRegion(location: CLLocation){
+        let coordinates = location.coordinate // only the (lat,long)
+        
+        let region = MKCoordinateRegion(center: coordinates, latitudinalMeters: 100, longitudinalMeters: 100)
+        
+        mapView.setRegion(region, animated: true)
+    }
+    
+    
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionBegan(motion, with: event)
+        
+        guard let location = locationManager.getLastKnownLocation() else {return}
+        let coordinate = location.coordinate
+        
+        if motion == .motionShake{
+            
+           locationManager.address(location: location)
+            
+           let annotation = PizzaAnnotation(coordinate: coordinate, title: "Pizza", subtitle: "Yammi")
+            //add the annotation to the map:
+            mapView.addAnnotation(annotation)
+            
+            //animate the map to zoom out
+            let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
     @IBAction func changeMapType(_ sender: UISegmentedControl) {
         let arr:[MKMapType] = [.standard, .satellite, .hybrid]
         mapView.mapType = arr[sender.selectedSegmentIndex]
@@ -52,6 +92,22 @@ extension ViewController:MKMapViewDelegate{
     }
     
     //instructions on how to draw annotations
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+       
+        var view = mapView.dequeueReusableAnnotationView(withIdentifier: "pizza")
+        //dont want to change other annotations:
+        if !(annotation is PizzaAnnotation){return nil}
+        if view == nil{
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: "pizza")
+            view?.image = #imageLiteral(resourceName: "pizza")
+            view?.backgroundColor = .clear
+            //show more data on the pin:
+            view?.canShowCallout = true
+        }
+        return view
+    }
+    
+    
 }
 
 //maps help draw the map

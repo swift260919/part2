@@ -16,8 +16,19 @@
 
 import UIKit
 import CoreLocation
+import Contacts
+
+//2)convenience - .HKLocationChanged
+extension Notification.Name{
+    //the name of our notification
+     static let HKLocationChanged = Notification.Name("Location changed")
+}
 
 class MLocationManager:NSObject {
+    
+    //1)MLocationManager.HKLocationChanged
+   
+    
     //singleton:
     static let shared = MLocationManager()
     
@@ -79,6 +90,37 @@ class MLocationManager:NSObject {
         
         return isAuthorized
     }
+    
+    let coder = CLGeocoder()
+     func address(location: CLLocation){
+        coder.reverseGeocodeLocation(location) { (placemarks, err) in
+            //[CLPlacemark]?
+            
+            if let err = err{
+                print("err: ", err.localizedDescription)
+            }
+            
+            guard let place = placemarks?.first else {return}
+            let country = place.country ?? ""
+            let city = place.postalAddress?.city ?? ""
+            let street = place.postalAddress?.street ?? ""
+            
+            
+            print(country, city, street)
+        }
+     }
+    
+    func loaction(of address: String){
+        coder.geocodeAddressString(address) { (placemarks, err) in
+            if let err = err{
+                print("err: ", err.localizedDescription)
+            }
+            
+            guard let place = placemarks?.first else {return} //not found
+            print(place.location)
+        }
+    }
+    
 }
 
 //NSObjectProtocol
@@ -96,11 +138,15 @@ extension MLocationManager: CLLocationManagerDelegate{
     
     //didUpdateLocations
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations)
+        //broadcast a new transmition:
+        NotificationCenter.default.post(name: .HKLocationChanged, object: nil, userInfo: ["location": locations[0]])
     }
     //didFailWithError
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
+    
+    
+ 
 
 }
