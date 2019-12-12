@@ -10,11 +10,17 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController {
-
+    
+    
+    let locationManager = MLocationManager.shared
+    
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        //print(locationManager.getLastKnownLocation())
+        locationManager.getLocationUpdaets()
+        mapView.delegate = self
     }
 
     @IBAction func changeMapType(_ sender: UISegmentedControl) {
@@ -32,3 +38,21 @@ class ViewController: UIViewController {
     
 }
 
+extension ViewController:MKMapViewDelegate{
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        //map is ready
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        //when the user taps an annotation on the map
+    }
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        //permission
+    }
+    
+    //instructions on how to draw annotations
+}
+
+//maps help draw the map
+//CoreLocation - where is my user (without a map)

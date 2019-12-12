@@ -14,6 +14,7 @@
 		6DADAD6823A22C4200C5FD62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DADAD6723A22C4200C5FD62 /* Assets.xcassets */; };
 		6DADAD6B23A22C4200C5FD62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DADAD6923A22C4200C5FD62 /* LaunchScreen.storyboard */; };
 		6DADAD7423A2319900C5FD62 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DADAD7323A2319900C5FD62 /* MapKit.framework */; };
+		6DADAD7623A23EBC00C5FD62 /* MLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DADAD7523A23EBC00C5FD62 /* MLocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		6DADAD6A23A22C4200C5FD62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6DADAD6C23A22C4200C5FD62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DADAD7323A2319900C5FD62 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6DADAD7523A23EBC00C5FD62 /* MLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLocationManager.swift; sourceTree = "<group>"; };
+		6DADAD7723A24CA800C5FD62 /* HackeruRun.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HackeruRun.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 				6DADAD6723A22C4200C5FD62 /* Assets.xcassets */,
 				6DADAD6923A22C4200C5FD62 /* LaunchScreen.storyboard */,
 				6DADAD6C23A22C4200C5FD62 /* Info.plist */,
+				6DADAD7523A23EBC00C5FD62 /* MLocationManager.swift */,
+				6DADAD7723A24CA800C5FD62 /* HackeruRun.gpx */,
 			);
 			path = Lec17Part1;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 			files = (
 				6DADAD6323A22C3F00C5FD62 /* ViewController.swift in Sources */,
 				6DADAD5F23A22C3F00C5FD62 /* AppDelegate.swift in Sources */,
+				6DADAD7623A23EBC00C5FD62 /* MLocationManager.swift in Sources */,
 				6DADAD6123A22C3F00C5FD62 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
