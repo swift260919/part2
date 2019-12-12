@@ -18,7 +18,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func changeMapType(_ sender: UISegmentedControl) {
+        let arr:[MKMapType] = [.standard, .satellite, .hybrid]
+        mapView.mapType = arr[sender.selectedSegmentIndex]
         
+//        if sender.selectedSegmentIndex == 0{
+//            mapView.mapType = .standard
+//        }else if sender.selectedSegmentIndex == 1{
+//            mapView.mapType = .satellite
+//        }else if sender.selectedSegmentIndex == 2{
+//            mapView.mapType = .hybrid
+//        }
     }
     
 }
