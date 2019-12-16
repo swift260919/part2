@@ -16,12 +16,34 @@ class GameScene: SKScene {
         case background = 0
         case player = 1
     }
-
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         addBackground()
-        addSpaceship()
+        //addSpaceship()
+        addShapes()
     }
+    
+    func addShapes(){
+        //0.25 rectangle
+        let rectangle = SKSpriteNode(imageNamed: "rectangle")
+        rectangle.zPosition = Z.player.rawValue
+        rectangle.position = CGPoint(x: size.width * 0.25, y: frame.midY)
+        addChild(rectangle)
+        
+        //0.5 ball
+        let ball = SKSpriteNode(imageNamed: "ball")
+        ball.zPosition = Z.player.rawValue
+        ball.position = CGPoint(x: size.width * 0.5, y: frame.midY)
+        addChild(ball)
+
+        //0.75 triangle
+        let triangle = SKSpriteNode(imageNamed: "triangle")
+        triangle.zPosition = Z.player.rawValue
+        triangle.position = CGPoint(x: size.width * 0.75, y: frame.midY)
+        addChild(triangle)
+    }
+    
     
     func addBackground(){
         //1) init a node
@@ -44,7 +66,7 @@ class GameScene: SKScene {
         spaceship.position = CGPoint(x: frame.midX, y: frame.midY)
         spaceship.xScale = 2
         spaceship.yScale = 2
-         spaceship.zPosition = Z.player.rawValue
+        spaceship.zPosition = Z.player.rawValue
         //3) add it
         addChild(spaceship)
     }
