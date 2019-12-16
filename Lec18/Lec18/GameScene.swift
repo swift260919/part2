@@ -18,9 +18,36 @@ class GameScene: SKScene {
         
         let ball = childNode(withName: "ball")
         ball?.physicsBody?.categoryBitMask = ColissionBitMask.Ball // = 1
-        //let ground  = //TODO: add ground
-        //let bricks //we have many bricks. todo: enumarate them
+        
+        
+        let ground  = childNode(withName: "ground")
+        ground?.physicsBody?.categoryBitMask = ColissionBitMask.Ground // = 4
+        
+        //tell spritekit that we are interested in colissions between the ball and ground
+              //between the ball and bricks
+        ball?.physicsBody?.contactTestBitMask = ColissionBitMask.Ground | ColissionBitMask.Brick
+        
+        //TODO: be the delegate
+      
+        physicsWorld.contactDelegate = self
     }
+    
+    func addGround(){
+        let ground = SKSpriteNode(imageNamed: "ground")
+        ground.name = "ground"
+        print(ground.size)
+        ground.size.width = frame.width
+
+        ground.size.height = 20
+        
+        ground.zPosition = Z.background.rawValue
+        ground.position = CGPoint(x: frame.midX, y: ground.size.height / 2)
+        ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
+        ground.physicsBody?.isDynamic = false
+
+        addChild(ground)
+    }
+    
     
     //we only Have 32 categories:
     struct ColissionBitMask{
@@ -39,6 +66,7 @@ class GameScene: SKScene {
         super.didMove(to: view)
         closeTheWorld()
         addBackground()
+        addGround()
         //addSpaceship()
         // addShapes()
         addBall()
@@ -46,6 +74,8 @@ class GameScene: SKScene {
         addPaddle()
         
         addBricks()
+        
+        setupCollisions()
     }
      
     //TODO: add Bricks:
@@ -211,6 +241,67 @@ class GameScene: SKScene {
     //called each time a frame is rendered
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
-        //
+        guard let ballBody = childNode(withName: "ball")?.physicsBody else {return}
+        
+        let desiredSpeed:CGFloat = 10
+        
+        let speedX = abs(ballBody.velocity.dx)
+        let signX = ballBody.velocity.dx < 0 ? -1 : 1 //todo: find the sign
+        
+        
+        if speedX < desiredSpeed{
+            ballBody.applyImpulse(CGVector(dx: 1 * signX, dy: 0))
+        }
+        
+        let speedY = abs(ballBody.velocity.dy)
+        let signY = ballBody.velocity.dy < 0 ? -1 : 1 //todo: find the sign
+        
+        if speedY < desiredSpeed{
+            ballBody.applyImpulse(CGVector(dx: 0, dy: 1 * signY))
+        }
+    }
+}
+
+
+extension GameScene: SKPhysicsContactDelegate{
+    func didBegin(_ contact: SKPhysicsContact) {
+        var a = contact.bodyA
+        var b = contact.bodyB
+        
+        
+        //make sure that a < b
+        if b.categoryBitMask < a.categoryBitMask{
+            a = contact.bodyB
+            b = contact.bodyA
+        }
+ 
+        //a is always the ball
+        if b.categoryBitMask == ColissionBitMask.Brick{
+            print("Ball hit brick")
+            
+            //init an action
+           // let scaleAction  = SKAction.scale(by: 0.5, duration: 0.5)
+            let playSound = SKAction.playSoundFileNamed("break", waitForCompletion: false)
+            let wait = SKAction.wait(forDuration: 0.5)
+            let removeAction = SKAction.removeFromParent()
+
+            let sequenceAction = SKAction.sequence([playSound, wait, removeAction])
+            
+            guard let emitter = SKEmitterNode(fileNamed: "bokeh") else {return}
+            emitter.zPosition = 4
+            emitter.position = b.node?.position ?? CGPoint.zero
+            addChild(emitter)
+            
+            emitter.run(SKAction.sequence([wait, removeAction]))
+            
+            //run the action on a node
+            b.node?.run(sequenceAction)
+            
+        }else if b.categoryBitMask == ColissionBitMask.Ground{
+            print("Ball hit Ground")
+        }
+        
+        
+//        print("Colission between \(a.categoryBitMask) and \(b.categoryBitMask)"  )
     }
 }

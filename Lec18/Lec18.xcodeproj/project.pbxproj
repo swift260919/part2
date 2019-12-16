@@ -13,6 +13,8 @@
 		6DE4F92723A764F40093371A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DE4F92523A764F40093371A /* Main.storyboard */; };
 		6DE4F92923A764F50093371A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DE4F92823A764F50093371A /* Assets.xcassets */; };
 		6DE4F92C23A764F50093371A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DE4F92A23A764F50093371A /* LaunchScreen.storyboard */; };
+		6DE4F93423A7C1730093371A /* bokeh.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6DE4F93323A7C1730093371A /* bokeh.sks */; };
+		6DE4F93623A7C47D0093371A /* break.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6DE4F93523A7C47D0093371A /* break.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		6DE4F92823A764F50093371A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DE4F92B23A764F50093371A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6DE4F92D23A764F50093371A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DE4F93323A7C1730093371A /* bokeh.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bokeh.sks; sourceTree = "<group>"; };
+		6DE4F93523A7C47D0093371A /* break.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = break.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,7 @@
 		6DE4F91A23A764F30093371A /* Lec18 */ = {
 			isa = PBXGroup;
 			children = (
+				6DE4F93523A7C47D0093371A /* break.wav */,
 				6DE4F91B23A764F30093371A /* AppDelegate.swift */,
 				6DE4F92123A764F40093371A /* GameScene.swift */,
 				6DE4F92323A764F40093371A /* GameViewController.swift */,
@@ -63,6 +68,7 @@
 				6DE4F92823A764F50093371A /* Assets.xcassets */,
 				6DE4F92A23A764F50093371A /* LaunchScreen.storyboard */,
 				6DE4F92D23A764F50093371A /* Info.plist */,
+				6DE4F93323A7C1730093371A /* bokeh.sks */,
 			);
 			path = Lec18;
 			sourceTree = "<group>";
@@ -125,7 +131,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DE4F93623A7C47D0093371A /* break.wav in Resources */,
 				6DE4F92723A764F40093371A /* Main.storyboard in Resources */,
+				6DE4F93423A7C1730093371A /* bokeh.sks in Resources */,
 				6DE4F92923A764F50093371A /* Assets.xcassets in Resources */,
 				6DE4F92C23A764F50093371A /* LaunchScreen.storyboard in Resources */,
 			);
