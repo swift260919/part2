@@ -25,11 +25,27 @@ class GameScene: SKScene {
         // addShapes()
         addBall()
         applyImpulse()
+        addPaddle()
     }
     
     //TODO: add a paddle
+    //body
+    //friction = 0
+    //isDynamic = false
+    //zPosition = Z.player.rawValue
+    //name = "paddle"
+    //position = ...center above the ground...
     
-    
+    func addPaddle(){
+        let paddle = SKSpriteNode(imageNamed: "paddle")
+        paddle.name = "paddle"
+        paddle.physicsBody = SKPhysicsBody(rectangleOf: paddle.size)
+        paddle.physicsBody?.isDynamic = false //paddle is a static body
+        paddle.physicsBody?.friction = 0
+        paddle.position = CGPoint(x: frame.midX, y: frame.height * 0.15)
+        paddle.zPosition = Z.player.rawValue
+        addChild(paddle)
+    }
     
     func applyImpulse(){
         //remove gravity
@@ -50,6 +66,7 @@ class GameScene: SKScene {
         
         //Elastic body:
         body.affectedByGravity = true
+        body.allowsRotation = true
         body.isDynamic = true //false = the ball is static and does not move
         body.friction = 0 //friction with other bodies
         body.linearDamping = 0 // friction with the air
@@ -121,26 +138,29 @@ class GameScene: SKScene {
         addChild(spaceship)
     }
     
-    func addLabel(_ position: CGPoint){
-        let myLabel = SKLabelNode(fontNamed: "Chalkduster")
-        
-        let x = String(format: "%4.1f", position.x)
-        let y = String(format: "%4.1f", position.y)
-        
-        myLabel.text = "(\(x), \(y))"
-        myLabel.fontSize = 10
-        
-        myLabel.position = position
-        
-        self.addChild(myLabel)
-    }
     
+    
+    var isFingerOnPaddle = false
     
     //touch handling:
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        if let location = touches.first?.location(in: self){
-            addLabel(location)
+       
+        //find the paddle
+        guard let paddle = childNode(withName: "paddle"),
+              let location = touches.first?.location(in: self) else {return}
+        
+        isFingerOnPaddle = paddle.frame.contains(location)
+    }
+    
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+         
+        guard let paddle = childNode(withName: "paddle"),
+              let location = touches.first?.location(in: self) else {return}
+        if isFingerOnPaddle{
+            paddle.position.x = location.x
         }
     }
     
