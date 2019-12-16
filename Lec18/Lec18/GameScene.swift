@@ -12,6 +12,24 @@ import GameplayKit
 //scenes present nodes
 class GameScene: SKScene {
     
+    func setupCollisions(){
+        let paddle = childNode(withName: "paddle")
+        paddle?.physicsBody?.categoryBitMask = ColissionBitMask.Paddle // = 8
+        
+        let ball = childNode(withName: "ball")
+        ball?.physicsBody?.categoryBitMask = ColissionBitMask.Ball // = 1
+        //let ground  = //TODO: add ground
+        //let bricks //we have many bricks. todo: enumarate them
+    }
+    
+    //we only Have 32 categories:
+    struct ColissionBitMask{
+        static let Ball:UInt32 = 1
+        static let Brick: UInt32 = 2 //1 << 1
+        static let Ground: UInt32 = 4 //1 << 2
+        static let Paddle: UInt32 = 8 // 1 << 3
+    }
+    
     enum Z: CGFloat {
         case background = 0
         case player = 1
@@ -26,12 +44,41 @@ class GameScene: SKScene {
         addBall()
         applyImpulse()
         addPaddle()
+        
+        addBricks()
     }
      
     //TODO: add Bricks:
     //01-Breakout-Tiles
     
-    
+    func addBricks(){
+        let nBricks = 10
+
+        let brick = SKSpriteNode(imageNamed: "01-Breakout-Tiles")
+        let aspectRatio = brick.size.width /  brick.size.height
+        
+        let w = frame.size.width * 0.8 / CGFloat(nBricks)
+        let h =  w / aspectRatio
+        
+        //(width - bricksWidth) / 2
+        var xOffset = (frame.width - CGFloat(nBricks) * w ) / 2 + w / 2
+        
+        for _ in 0..<nBricks{
+            let block = SKSpriteNode(imageNamed: "01-Breakout-Tiles")
+            block.size.width = w
+            block.size.height = h
+            block.physicsBody = SKPhysicsBody(rectangleOf: block.size)
+            block.physicsBody?.isDynamic = false
+            block.zPosition = Z.player.rawValue
+            block.physicsBody?.categoryBitMask = ColissionBitMask.Brick
+            //position:
+            block.position.x = xOffset
+            block.position.y = frame.height - h
+            addChild(block)
+            
+            xOffset += w
+        }
+    }
     
     func addPaddle(){
         let paddle = SKSpriteNode(imageNamed: "paddle")
