@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
         
         //for debugging purposes:
         skView.showsNodeCount = true
-        
+        skView.showsPhysics = true //draw the body around the body
         
         //skviews present scenes
         //1) init a scene:
