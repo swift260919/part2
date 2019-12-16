@@ -27,14 +27,11 @@ class GameScene: SKScene {
         applyImpulse()
         addPaddle()
     }
+     
+    //TODO: add Bricks:
+    //01-Breakout-Tiles
     
-    //TODO: add a paddle
-    //body
-    //friction = 0
-    //isDynamic = false
-    //zPosition = Z.player.rawValue
-    //name = "paddle"
-    //position = ...center above the ground...
+    
     
     func addPaddle(){
         let paddle = SKSpriteNode(imageNamed: "paddle")
